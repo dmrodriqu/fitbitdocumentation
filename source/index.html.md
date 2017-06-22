@@ -125,51 +125,47 @@ Two classes are contained in findOmissions MainData and SubData:
 
 MainData has several instance variables containing information pertinent to the overview of the study:
 
-* self.df -> pd.Dataframe
 
-The current DataFrame to be processed
 
-* self.surveyParticipants -> list
-
-A unique list of survey participants
-
-* self.arrayOfSubsetObjects -> list
-
-A list containing the SubData objects detailing each patient’s participation in the study
-
-* self.patientsToContact -> list
-
-- - deprecated - -
+Values                    |    Data Type     |Description
+------------------------  | ---------------- | ------------------------------------------- 
+df	               |   pd.DataFrame            | The current DataFrame to be processed
+surveyParticipants     |   list   | A unique list of survey participants
+arrayOfSubsetObjects   |   list   | A list containing the SubData objects detailing each patient’s participation in the study
+patientsToContact      |   list   | deprecated
 
 
 Methods:
 
-* _getJsonPath(self)
 
-gets the path of the JSON file in the current directory
+
+
+Function                | Input Data Type  | Return Data Type |Description
+---------------------   |----------------  | ---------------- | ------------------------------------------- 
+_getJsonPath	        |                  |file          | Opens and reads the JSON file at Table.filepath.
+_stringCleaning	        |  string          |string       | removes parenthesis
+_convertTime            |  string          |DateTime  | converts epoch to datetime
+_newTable               |  pd.DataFrame    |pd.DataFrame| removes parenthesis in table
+_getStartDates	        |  pd.DataFrame    |pd.DataFrame   | Returns time requested and time completed for each survey with ID as the pKey
+_construct       	|                  |               | sets self.df using the return value from _getStartDates and sets self.surveyIDs as unique IDs
+_getCondition   	|                  |               | deprecated
+createTraversal    	|                  |self.arrayOfSubsetObjects | Creates a SubData class for every participant ID
+
 
 * _stringCleaning(self, stringToClean)
-
-removes parenthesis
 
 Parameters| Data Type|Description
 --------- | ------- | ------- 
 stringToClean  | Str| String containing extraneous parentheses.
 
+
+
 * _convertTime(self, unixTime)
 
-converts epoch to datetime
 
 Parameters| Data Type|Description
 --------- | ------- | ------- 
 unixTime  | Str     | Time expressed in the number of seconds past Thursday, 1 January 1970, minus the number of leap seconds that have taken place since then 
-
-
-* _newTable(self)
-
-removes parenthesis in table
-
-
 
 
 
@@ -182,19 +178,11 @@ Parameters| Data Type|Description
 --------- | -------  |------- 
 table     |   pd.DataFrame    |A pandas DataFrame containing a parsed JSON file 
 
-
 Values | Data Type |Description
 --------- | ------- | ------- 
 table |  pd.DataFrame   | A pandas DataFrame with UnixTime objects converted to DateTime
 
 
-* _construct(self)
-
-removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame
-
-* _getCondition(): 
-
- - - deprecated - -
 
 * createTraversal(self)
 
