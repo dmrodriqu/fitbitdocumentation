@@ -1,189 +1,173 @@
 ---
-title: API Reference
+title: Fitbit Data Parsers
 
 language_tabs:
-  - shell
-  - ruby
   - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
-includes:
-  - errors
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+The Fitbit Data Parsers take JSON data provided by the study-hub and parse it into two formats. 
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+1. A human readable format that allows for use in either Microsoft Excel for clinical trial staff or querying in other languages.
+2. Structuring data so that it can be readily processed for future analyses.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+# Application Structure
 
-# Authentication
+The parser structure manages several functions so that it automatically parses data with minimal interaction on the user’s part.
 
-> To authorize, use this code:
 
-```ruby
-require 'kittn'
+A JSON file is first parsed by Parser.py. 
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+findOmissions.py performs several functions. It structures the data into a tree and contains several methods to find omissions in data.
 
-```python
-import kittn
+printOmissions.py allows for the output of data a user defines to the terminal.
 
-api = kittn.authorize('meowmeowmeow')
-```
+## Parser.py
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+The Parser module contains one class, Table(), initialized with the filepath of the JSON and contains two instance variables
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+* self.filepath -> str
+* self.parsedTable -> pd.DataFrame
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+Table(str)
+Table.filepath -> str # The filepath of the JSON file
+Table.parsedTable -> pd.DataFrame # The resulting parsed table
 ```
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+> To parse a JSON file:
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+from Parser import Table
+fpath = ~/documents/V2/someJsonFile.json
+table = Table(fpath)
+table.parsedTable()
 ```
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+Table() contains multiple methods to achieve the above:
+
+* Table.openJsonFile(self): Opens and reads the JSON file at Table.filepath.
+
+* Table.parseJson(self): Parses a JSON file to a pandas DataFrame
+
+* Table.createDataFrame(self): Creates a Pandas DataFrame from a dictionary
+
+* Table.parseDataColumn(self): Iterates over dictionaries in a Pandas DataFrame
+
+* Table.concatAndTransposeData(self): Formats all dictionaries present in columns to a pandas DataFrame
+
+* Table.parseNameSpace(self, regex, testString): takes a regex string and searches for matches.
+
+* Table.namespaceBruteSearch(self): Extracts all available column headers in the namespace column.
+
+* Table.getAllFrames(self): Creates a human readable DataFrame
+
+* Table.addFromBruteSearch(self): adds column headers from namespaces to each record
+
+* Table.renameCol(self): Creates an appropriate name for each column
+
+
+
+
+
+
+
+## findOmissions.py
+
+findOmissions.py creates a tree of which no node is more than two steps away from the root node.
+
+Two classes are contained in findOmissions MainData and SubData:
+
+
+### MainData
+
+MainData has several instance variables containing information pertinent to the overview of the study:
+
+* self.df -> pd.Dataframe
+
+The current DataFrame to be processed
+
+* self.surveyParticipants -> list
+
+A unique list of survey participants
+
+* self.arrayOfSubsetObjects -> list
+
+A list containing the SubData objects detailing each patient’s participation in the study
+
+* self.patientsToContact -> list
+
+- - deprecated - -
+
+
+Methods:
+
+* _getJsonPath(self): gets the path of the JSON file in the current directory
+* _stringCleaning(self, stringToClean): removes parenthesis
+* _convertTime(self, unixTime): converts epoch to datetime
+* _newTable(self): removes parenthesis in table
+* _getStartDates(self, table): converts epochs in table.
+* _construct(self): removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame
+* _getCondition():  - - deprecated - -
+* createTraversal(self): traverses over DataFrame and creates SubData objects for each participant ID
+
+
+> To set structure survey data:
+
+```python
+structure =  MainData()
+structure.createTraversal()
 ```
 
-```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+### SubData
+
+SubData structures surveys, scoring, dates to complete, and each individuals enrollment date.
+
+SubData’s instance variables:
+
+* self.participantID -> str
+
+ID of the participant
+
+* self.df -> pd.DataFrame
+
+Data respective of the individual participant
+
+* self.uniqueSurveys -> list
+
+Each survey of the participant
+
+* self.enrollmentDate -> [dateTime]
+
+Date of enrollment for the participant
+
+* self.datesToCompleteSurveys -> [dateTime]
+
+Date to complete each survey (index respective of the unique survey list)
+
+* self.contactPatient -> bool
+
+Default false, True if to contact patient
+
+
+
+Methods:
+
+* getQuestionDate(self, question, requested = requested)
+
+
+Parameters| Description
+--------- | ------- 
+question| Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)| 
+requested| time requested, default = requested, (‘completed’, ‘requested’)
+
+```python
+
 ```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
