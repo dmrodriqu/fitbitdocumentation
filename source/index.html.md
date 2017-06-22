@@ -108,14 +108,54 @@ A list containing the SubData objects detailing each patient’s participation i
 
 Methods:
 
-* _getJsonPath(self): gets the path of the JSON file in the current directory
-* _stringCleaning(self, stringToClean): removes parenthesis
-* _convertTime(self, unixTime): converts epoch to datetime
-* _newTable(self): removes parenthesis in table
-* _getStartDates(self, table): converts epochs in table.
-* _construct(self): removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame
-* _getCondition():  - - deprecated - -
-* createTraversal(self): traverses over DataFrame and creates SubData objects for each participant ID
+* _getJsonPath(self)
+
+gets the path of the JSON file in the current directory
+
+* _stringCleaning(self, stringToClean)
+
+removes parenthesis
+
+Parameters| Data Type|Description
+--------- | ------- | ------- 
+stringToClean  | Str| String containing extraneous parentheses.
+
+* _convertTime(self, unixTime)
+
+converts epoch to datetime
+
+Parameters| Data Type|Description
+--------- | ------- | ------- 
+unixTime  | Str     | Time expressed in the number of seconds past Thursday, 1 January 1970, minus the number of leap seconds that have taken place since then 
+
+
+* _newTable(self)
+
+removes parenthesis in table
+
+* _getStartDates(self, table)
+
+converts epochs in table.
+
+
+Parameters| Data Type|Description
+--------- | -------  |------- 
+table     |  pd.Df   |a pandas DataFrame containing a parsed JSON file| 
+
+
+
+
+* _construct(self)
+
+removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame
+
+* _getCondition(): 
+
+ - - deprecated - -
+
+* createTraversal(self)
+
+traverses over DataFrame and creates SubData objects for each participant ID
 
 
 > To set structure survey data:
@@ -160,13 +200,20 @@ Default false, True if to contact patient
 
 Methods:
 
-* getQuestionDate(self, question, requested = requested)
+* getQuestionDate(self, question, requested = requested) -> [dateTime]
+
+Retrieves a list of the dates for each task presented
+
+Parameters| Data Type |Description
+--------- | ------- | ------- 
+question  |   Str   |Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)| 
+requested |   Str   | time requested, default = requested, (‘completed’, ‘requested’)
 
 
-Parameters| Description
---------- | ------- 
-question| Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)| 
-requested| time requested, default = requested, (‘completed’, ‘requested’)
+* calculateCompletionDates(self)
+
+Calculates the last possible date of completion for each task.
+
 
 ```python
 
