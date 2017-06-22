@@ -32,8 +32,13 @@ printOmissions.py allows for the output of data a user defines to the terminal.
 
 The Parser module contains one class, Table(), initialized with the filepath of the JSON and contains two instance variables
 
-* self.filepath -> str
-* self.parsedTable -> pd.DataFrame
+
+Values                    |    Data Type     |Description
+------------------------  | ---------------- | ------------------------------------------- 
+filepath 	          |   Str            | File path of the JSON file
+parsedTable               |   pd.DataFrame   | The resulting DataFrame of the parsed JSON file
+
+
 
 ```python
 Table(str)
@@ -52,52 +57,57 @@ table.parsedTable()
 
 Table() contains multiple methods to achieve the above:
 
-* Table.openJsonFile(self): 
 
-Opens and reads the JSON file at Table.filepath.
+Function                | Input Data Type  | Return Data Type |Description
+---------------------   |----------------  | ---------------- | ------------------------------------------- 
+openJsonFile	        |                  |file          | Opens and reads the JSON file at Table.filepath.
+parseJsonFile	        |                  |pd.DataFrame  | Parses a JSON file to a pandas DataFrame
+createDataFrame	        |  pd.Series       |pd.DataFrame  | Creates a Pandas DataFrame from a dictionary
+parseDataColumn         |  pd.DataFrame    |[pd.DataFrame]| Creates a DataFrame from dictionaries in a Pandas DataFrame
+concatAndTransposeData	|                  |pd.DataFrame   | Concatenates a list of dataframes
+parseNameSpace  	|  str, str        |pd.DataFrame   | takes a regex string and searches for matches within the namespace column
+namespaceBruteSearch  	|                  |list           | formats the namespace column using a reformatted regex string and self.parseNameSpace
+getAllFrames     	|                  |pd.DataFrame   | Creates a human readable DataFrame
+addFromBruteSearch 	|                  |pd.DataFrame   | concatenates reformatted namespace column
+renameCol        	|                  |pd.DataFrame   | renames the Columns
 
-* Table.parseJson(self): 
 
-Parses a JSON file to a pandas DataFrame
 
-* Table.createDataFrame(self): 
+* Table.createDataFrame(self, series): 
 
-Creates a Pandas DataFrame from a dictionary
+Parameters| Data Type|Description
+--------- | -------  |------- 
+series    |  pd.Series  |A regex string for pattern matching 
 
-* Table.parseDataColumn(self): 
+Values | Data Type|Description
+--------- | -------  |------- 
+          |  pd.DataFrame  |Creates a Pandas DataFrame from a dictionary
 
-Iterates over dictionaries in a Pandas DataFrame
 
-* Table.concatAndTransposeData(self): 
 
-Formats all dictionaries present in columns to a pandas DataFrame
+* Table.parseDataColumn(self, dataToClean): 
+
+Parameters| Data Type|Description
+--------- | -------  |------- 
+dataToClean |   pd.DataFrame  |A regex string for pattern matching 
+
+Values| Data Type|Description
+--------- | -------  |------- 
+          |  pd.DataFrame  | The resulting dictionary from a list of dictionaries
+
 
 * Table.parseNameSpace(self, regex, testString): 
-
-takes a regex string and searches for matches.
 
 
 Parameters| Data Type|Description
 --------- | -------  |------- 
-regex     |  str  |A regex string for pattern matching| 
-testString|  str  |The string to find matches in| 
+regex     |  str  |A regex string for pattern matching
+testString|  str  |The string to find matches in
 
-* Table.namespaceBruteSearch(self): 
-
-Extracts all available column headers in the namespace column.
-
-* Table.getAllFrames(self): 
-
-Creates a human readable DataFrame
-
-* Table.addFromBruteSearch(self): 
-
-adds column headers from namespaces to each record
-
-* Table.renameCol(self): 
-
-Creates an appropriate name for each column
-
+Values| Data Type|Description
+--------- | -------  |------- 
+regex     |  str  |A regex string for pattern matching
+testString|  str  |The string to find matches in
 
 
 
@@ -170,7 +180,7 @@ converts epochs in table.
 
 Parameters| Data Type|Description
 --------- | -------  |------- 
-table     |   pd.DataFrame    |A pandas DataFrame containing a parsed JSON file| 
+table     |   pd.DataFrame    |A pandas DataFrame containing a parsed JSON file 
 
 
 Values | Data Type |Description
@@ -246,7 +256,7 @@ addWindow |   DateTime  | Last possible date of completion of survey tasks
 
 Parameters| Data Type |Description
 --------- | ------- | ------- 
-question  |   Str   |Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)| 
+question  |   Str   |Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’) 
 requested |   Str   | time requested, default = requested, (‘completed’, ‘requested’)
 
 Values | Data Type |Description
