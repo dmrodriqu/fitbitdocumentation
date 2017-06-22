@@ -264,17 +264,83 @@
 <p>Table() contains multiple methods to achieve the above:</p>
 
 <ul>
-<li><p>Table.openJsonFile(self): Opens and reads the JSON file at Table.filepath.</p></li>
-<li><p>Table.parseJson(self): Parses a JSON file to a pandas DataFrame</p></li>
-<li><p>Table.createDataFrame(self): Creates a Pandas DataFrame from a dictionary</p></li>
-<li><p>Table.parseDataColumn(self): Iterates over dictionaries in a Pandas DataFrame</p></li>
-<li><p>Table.concatAndTransposeData(self): Formats all dictionaries present in columns to a pandas DataFrame</p></li>
-<li><p>Table.parseNameSpace(self, regex, testString): takes a regex string and searches for matches.</p></li>
-<li><p>Table.namespaceBruteSearch(self): Extracts all available column headers in the namespace column.</p></li>
-<li><p>Table.getAllFrames(self): Creates a human readable DataFrame</p></li>
-<li><p>Table.addFromBruteSearch(self): adds column headers from namespaces to each record</p></li>
-<li><p>Table.renameCol(self): Creates an appropriate name for each column</p></li>
+<li>Table.openJsonFile(self): </li>
 </ul>
+
+<p>Opens and reads the JSON file at Table.filepath.</p>
+
+<ul>
+<li>Table.parseJson(self): </li>
+</ul>
+
+<p>Parses a JSON file to a pandas DataFrame</p>
+
+<ul>
+<li>Table.createDataFrame(self): </li>
+</ul>
+
+<p>Creates a Pandas DataFrame from a dictionary</p>
+
+<ul>
+<li>Table.parseDataColumn(self): </li>
+</ul>
+
+<p>Iterates over dictionaries in a Pandas DataFrame</p>
+
+<ul>
+<li>Table.concatAndTransposeData(self): </li>
+</ul>
+
+<p>Formats all dictionaries present in columns to a pandas DataFrame</p>
+
+<ul>
+<li>Table.parseNameSpace(self, regex, testString): </li>
+</ul>
+
+<p>takes a regex string and searches for matches.</p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>regex</td>
+<td>str</td>
+<td>A regex string for pattern matching</td>
+</tr>
+<tr>
+<td>testString</td>
+<td>str</td>
+<td>The string to find matches in</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>Table.namespaceBruteSearch(self): </li>
+</ul>
+
+<p>Extracts all available column headers in the namespace column.</p>
+
+<ul>
+<li>Table.getAllFrames(self): </li>
+</ul>
+
+<p>Creates a human readable DataFrame</p>
+
+<ul>
+<li>Table.addFromBruteSearch(self): </li>
+</ul>
+
+<p>adds column headers from namespaces to each record</p>
+
+<ul>
+<li>Table.renameCol(self): </li>
+</ul>
+
+<p>Creates an appropriate name for each column</p>
 
 <h2 id="findomissions-py">findOmissions.py</h2>
 
