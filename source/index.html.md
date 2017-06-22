@@ -192,6 +192,7 @@ traverses over DataFrame and creates SubData objects for each participant ID
 > To set structure survey data:
 
 ```python
+From findOmissions import MainData
 structure =  MainData()
 structure.createTraversal()
 ```
@@ -254,8 +255,25 @@ completionDates |   list  | Dates of task completion
 completionAfterDates  |   list   | Dates of task completion after date range 
 nonCompletionDates |   list   | Last possible dates of completion for surveys not completed
 
+# Usage
 
+As each individual’s raw surveys and enrollment date is accessible separately from others, surveys can be scored and accessed systematically.
+
+Surveys and their dates are 0 indexed and are accessed separately. Should one want to correlate a survey with a date or tuples of dates, their indices are equivalent.
+
+
+
+
+> An example of calculating PSQIs
 
 ```python
+from findOmissions import MainData
 
+data = MainData() # creating the MainData Object
+data.createTraversal() # structuring the data
+for subject in data.getSubsetData():
+    subject.getUniqueSurveys()
+    print subject.participantID #prints an ID for the current participant
+    subject.getSurveySeries('PSQI')
+    print map (subject.scorePSQI, subject.uniqueSurveys) # prints an array of the PSQI scores
 ```
