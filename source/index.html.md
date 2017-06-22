@@ -52,25 +52,51 @@ table.parsedTable()
 
 Table() contains multiple methods to achieve the above:
 
-* Table.openJsonFile(self): Opens and reads the JSON file at Table.filepath.
+* Table.openJsonFile(self): 
 
-* Table.parseJson(self): Parses a JSON file to a pandas DataFrame
+Opens and reads the JSON file at Table.filepath.
 
-* Table.createDataFrame(self): Creates a Pandas DataFrame from a dictionary
+* Table.parseJson(self): 
 
-* Table.parseDataColumn(self): Iterates over dictionaries in a Pandas DataFrame
+Parses a JSON file to a pandas DataFrame
 
-* Table.concatAndTransposeData(self): Formats all dictionaries present in columns to a pandas DataFrame
+* Table.createDataFrame(self): 
 
-* Table.parseNameSpace(self, regex, testString): takes a regex string and searches for matches.
+Creates a Pandas DataFrame from a dictionary
 
-* Table.namespaceBruteSearch(self): Extracts all available column headers in the namespace column.
+* Table.parseDataColumn(self): 
 
-* Table.getAllFrames(self): Creates a human readable DataFrame
+Iterates over dictionaries in a Pandas DataFrame
 
-* Table.addFromBruteSearch(self): adds column headers from namespaces to each record
+* Table.concatAndTransposeData(self): 
 
-* Table.renameCol(self): Creates an appropriate name for each column
+Formats all dictionaries present in columns to a pandas DataFrame
+
+* Table.parseNameSpace(self, regex, testString): 
+
+takes a regex string and searches for matches.
+
+
+Parameters| Data Type|Description
+--------- | -------  |------- 
+regex     |  str  |A regex string for pattern matching| 
+testString|  str  |The string to find matches in| 
+
+* Table.namespaceBruteSearch(self): 
+
+Extracts all available column headers in the namespace column.
+
+* Table.getAllFrames(self): 
+
+Creates a human readable DataFrame
+
+* Table.addFromBruteSearch(self): 
+
+adds column headers from namespaces to each record
+
+* Table.renameCol(self): 
+
+Creates an appropriate name for each column
 
 
 
