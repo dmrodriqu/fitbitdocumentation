@@ -631,7 +631,8 @@
 <blockquote>
 <p>To set structure survey data:</p>
 </blockquote>
-<pre class="highlight python tab-python"><code><span class="n">structure</span> <span class="o">=</span>  <span class="n">MainData</span><span class="p">()</span>
+<pre class="highlight python tab-python"><code><span class="n">From</span> <span class="n">findOmissions</span> <span class="kn">import</span> <span class="nn">MainData</span>
+<span class="n">structure</span> <span class="o">=</span>  <span class="n">MainData</span><span class="p">()</span>
 <span class="n">structure</span><span class="o">.</span><span class="n">createTraversal</span><span class="p">()</span>
 </code></pre>
 <h3 id="subdata">SubData</h3>
@@ -788,7 +789,25 @@
 <td>Last possible dates of completion for surveys not completed</td>
 </tr>
 </tbody></table>
-<pre class="highlight python tab-python"><code>
+
+<h1 id="usage">Usage</h1>
+
+<p>As each individual’s raw surveys and enrollment date is accessible separately from others, surveys can be scored and accessed systematically.</p>
+
+<p>Surveys and their dates are 0 indexed and are accessed separately. Should one want to correlate a survey with a date or tuples of dates, their indices are equivalent.</p>
+
+<blockquote>
+<p>An example of calculating PSQIs</p>
+</blockquote>
+<pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">findOmissions</span> <span class="kn">import</span> <span class="n">MainData</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">MainData</span><span class="p">()</span> <span class="c"># creating the MainData Object</span>
+<span class="n">data</span><span class="o">.</span><span class="n">createTraversal</span><span class="p">()</span> <span class="c"># structuring the data</span>
+<span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">getSubsetData</span><span class="p">():</span>
+    <span class="n">subject</span><span class="o">.</span><span class="n">getUniqueSurveys</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">subject</span><span class="o">.</span><span class="n">participantID</span> <span class="c">#prints an ID for the current participant</span>
+    <span class="n">subject</span><span class="o">.</span><span class="n">getSurveySeries</span><span class="p">(</span><span class="s">'PSQI'</span><span class="p">)</span>
+    <span class="k">print</span> <span class="nb">map</span> <span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">scorePSQI</span><span class="p">,</span> <span class="n">subject</span><span class="o">.</span><span class="n">uniqueSurveys</span><span class="p">)</span> <span class="c"># prints an array of the PSQI scores</span>
 </code></pre>
       </div>
       <div class="dark-box">
