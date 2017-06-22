@@ -163,7 +163,7 @@ removes parenthesis in table
 
 
 
-* _getStartDates(self, table)
+* _getStartDates(self, table) -> table
 
 converts epochs in table.
 
@@ -205,29 +205,14 @@ SubData structures surveys, scoring, dates to complete, and each individuals enr
 
 SubData’s instance variables:
 
-* self.participantID -> str
-
-ID of the participant
-
-* self.df -> pd.DataFrame
-
-Data respective of the individual participant
-
-* self.uniqueSurveys -> list
-
-Each survey of the participant
-
-* self.enrollmentDate -> [dateTime]
-
-Date of enrollment for the participant
-
-* self.datesToCompleteSurveys -> [dateTime]
-
-Date to complete each survey (index respective of the unique survey list)
-
-* self.contactPatient -> bool
-
-Default false, True if to contact patient
+Values                    |    Data Type     |Description
+------------------------  | ---------------- | ------------------------------------------- 
+participantID	          |   Str            | ID of the Participant
+df	                  |   pd.DataFrame   | Data respective of the individual participant
+uniqueSurveys	          |   pd.DataFrame   | Surveys of the participant
+enrollmentDate	          |   [DateTime]     | Date of Enrollment for the participant
+datesToCompleteSurveys	  |   [DateTime]     | Last possible date to complete survey respective of self.uniqueSurveys
+self.contactPatient	  |   Bool           | True if staff to contact patient
 
 
 
@@ -247,7 +232,7 @@ requested |   Str   | time requested, default = requested, (‘completed’, ‘
 
 Returns the dates of when individuals should receive survey tasks
 
-* calculateDateRanges(self) -> (DateTime, DateTime)
+* calculateDateRanges(self) -> (datesOfCompletion, addWindow)
 
 Returns a tuple of DateTimes
 
@@ -257,7 +242,7 @@ datesOfCompletion  |   DateTime   | First possible date of completion of survey 
 addWindow |   DateTime  | Last possible date of completion of survey tasks
 
 
-* findOmissions(self, question)
+* findOmissions(self, question) -> [participantID, completionDates, completionAfterDates, nonCompletionDates]
 
 Parameters| Data Type |Description
 --------- | ------- | ------- 
