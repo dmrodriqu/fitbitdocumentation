@@ -314,15 +314,93 @@
 <p>Methods:</p>
 
 <ul>
-<li>_getJsonPath(self): gets the path of the JSON file in the current directory</li>
-<li>_stringCleaning(self, stringToClean): removes parenthesis</li>
-<li>_convertTime(self, unixTime): converts epoch to datetime</li>
-<li>_newTable(self): removes parenthesis in table</li>
-<li>_getStartDates(self, table): converts epochs in table.</li>
-<li>_construct(self): removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame</li>
-<li>_getCondition():  - - deprecated - -</li>
-<li>createTraversal(self): traverses over DataFrame and creates SubData objects for each participant ID</li>
+<li>_getJsonPath(self)</li>
 </ul>
+
+<p>gets the path of the JSON file in the current directory</p>
+
+<ul>
+<li>_stringCleaning(self, stringToClean)</li>
+</ul>
+
+<p>removes parenthesis</p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>stringToClean</td>
+<td>Str</td>
+<td>String containing extraneous parentheses.</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>_convertTime(self, unixTime)</li>
+</ul>
+
+<p>converts epoch to datetime</p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>unixTime</td>
+<td>Str</td>
+<td>Time expressed in the number of seconds past Thursday, 1 January 1970, minus the number of leap seconds that have taken place since then</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>_newTable(self)</li>
+</ul>
+
+<p>removes parenthesis in table</p>
+
+<ul>
+<li>_getStartDates(self, table)</li>
+</ul>
+
+<p>converts epochs in table.</p>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>table</td>
+<td>pd.Df</td>
+<td>a pandas DataFrame containing a parsed JSON file</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>_construct(self)</li>
+</ul>
+
+<p>removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame</p>
+
+<ul>
+<li><p>_getCondition(): </p>
+
+<ul>
+<li>- deprecated - -</li>
+</ul></li>
+<li><p>createTraversal(self)</p></li>
+</ul>
+
+<p>traverses over DataFrame and creates SubData objects for each participant ID</p>
 
 <blockquote>
 <p>To set structure survey data:</p>
@@ -375,24 +453,35 @@
 <p>Methods:</p>
 
 <ul>
-<li>getQuestionDate(self, question, requested = requested)</li>
+<li>getQuestionDate(self, question, requested = requested) -&gt; [dateTime]</li>
 </ul>
+
+<p>Retrieves a list of the dates for each task presented</p>
 
 <table><thead>
 <tr>
 <th>Parameters</th>
+<th>Data Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>question</td>
+<td>Str</td>
 <td>Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)</td>
 </tr>
 <tr>
 <td>requested</td>
+<td>Str</td>
 <td>time requested, default = requested, (‘completed’, ‘requested’)</td>
 </tr>
 </tbody></table>
+
+<ul>
+<li>calculateCompletionDates(self)</li>
+</ul>
+
+<p>Calculates the last possible date of completion for each task.</p>
 <pre class="highlight python tab-python"><code>
 </code></pre>
       </div>
