@@ -93,7 +93,7 @@ dataToClean |   pd.DataFrame  |A regex string for pattern matching
 
 Values| Data Type|Description
 --------- | -------  |------- 
-          |  pd.DataFrame  | The resulting dictionary from a list of dictionaries
+          |  pd.DataFrame  | The resulting DataFrame from a list of dictionaries
 
 
 * Table.parseNameSpace(self, regex, testString): 
