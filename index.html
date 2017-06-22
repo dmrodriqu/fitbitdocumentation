@@ -432,7 +432,7 @@
 <p>removes parenthesis in table</p>
 
 <ul>
-<li>_getStartDates(self, table)</li>
+<li>_getStartDates(self, table) -&gt; table</li>
 </ul>
 
 <p>converts epochs in table.</p>
@@ -494,41 +494,44 @@
 
 <p>SubData’s instance variables:</p>
 
-<ul>
-<li>self.participantID -&gt; str</li>
-</ul>
-
-<p>ID of the participant</p>
-
-<ul>
-<li>self.df -&gt; pd.DataFrame</li>
-</ul>
-
-<p>Data respective of the individual participant</p>
-
-<ul>
-<li>self.uniqueSurveys -&gt; list</li>
-</ul>
-
-<p>Each survey of the participant</p>
-
-<ul>
-<li>self.enrollmentDate -&gt; [dateTime]</li>
-</ul>
-
-<p>Date of enrollment for the participant</p>
-
-<ul>
-<li>self.datesToCompleteSurveys -&gt; [dateTime]</li>
-</ul>
-
-<p>Date to complete each survey (index respective of the unique survey list)</p>
-
-<ul>
-<li>self.contactPatient -&gt; bool</li>
-</ul>
-
-<p>Default false, True if to contact patient</p>
+<table><thead>
+<tr>
+<th>Values</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>participantID</td>
+<td>Str</td>
+<td>ID of the Participant</td>
+</tr>
+<tr>
+<td>df</td>
+<td>pd.DataFrame</td>
+<td>Data respective of the individual participant</td>
+</tr>
+<tr>
+<td>uniqueSurveys</td>
+<td>pd.DataFrame</td>
+<td>Surveys of the participant</td>
+</tr>
+<tr>
+<td>enrollmentDate</td>
+<td>[DateTime]</td>
+<td>Date of Enrollment for the participant</td>
+</tr>
+<tr>
+<td>datesToCompleteSurveys</td>
+<td>[DateTime]</td>
+<td>Last possible date to complete survey respective of self.uniqueSurveys</td>
+</tr>
+<tr>
+<td>self.contactPatient</td>
+<td>Bool</td>
+<td>True if staff to contact patient</td>
+</tr>
+</tbody></table>
 
 <p>Methods:</p>
 
@@ -564,7 +567,7 @@
 <p>Returns the dates of when individuals should receive survey tasks</p>
 
 <ul>
-<li>calculateDateRanges(self) -&gt; (DateTime, DateTime)</li>
+<li>calculateDateRanges(self) -&gt; (datesOfCompletion, addWindow)</li>
 </ul>
 
 <p>Returns a tuple of DateTimes</p>
@@ -589,7 +592,7 @@
 </tbody></table>
 
 <ul>
-<li>findOmissions(self, question)</li>
+<li>findOmissions(self, question) -&gt; [participantID, completionDates, completionAfterDates, nonCompletionDates]</li>
 </ul>
 
 <table><thead>
