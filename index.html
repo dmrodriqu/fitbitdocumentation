@@ -463,44 +463,98 @@
 
 <p>MainData has several instance variables containing information pertinent to the overview of the study:</p>
 
-<ul>
-<li>self.df -&gt; pd.Dataframe</li>
-</ul>
-
-<p>The current DataFrame to be processed</p>
-
-<ul>
-<li>self.surveyParticipants -&gt; list</li>
-</ul>
-
-<p>A unique list of survey participants</p>
-
-<ul>
-<li>self.arrayOfSubsetObjects -&gt; list</li>
-</ul>
-
-<p>A list containing the SubData objects detailing each patient’s participation in the study</p>
-
-<ul>
-<li><p>self.patientsToContact -&gt; list</p></li>
-<li><ul>
-<li>deprecated - -</li>
-</ul></li>
-</ul>
+<table><thead>
+<tr>
+<th>Values</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>df</td>
+<td>pd.DataFrame</td>
+<td>The current DataFrame to be processed</td>
+</tr>
+<tr>
+<td>surveyParticipants</td>
+<td>list</td>
+<td>A unique list of survey participants</td>
+</tr>
+<tr>
+<td>arrayOfSubsetObjects</td>
+<td>list</td>
+<td>A list containing the SubData objects detailing each patient’s participation in the study</td>
+</tr>
+<tr>
+<td>patientsToContact</td>
+<td>list</td>
+<td>deprecated</td>
+</tr>
+</tbody></table>
 
 <p>Methods:</p>
 
-<ul>
-<li>_getJsonPath(self)</li>
-</ul>
-
-<p>gets the path of the JSON file in the current directory</p>
+<table><thead>
+<tr>
+<th>Function</th>
+<th>Input Data Type</th>
+<th>Return Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>_getJsonPath</td>
+<td></td>
+<td>file</td>
+<td>Opens and reads the JSON file at Table.filepath.</td>
+</tr>
+<tr>
+<td>_stringCleaning</td>
+<td>string</td>
+<td>string</td>
+<td>removes parenthesis</td>
+</tr>
+<tr>
+<td>_convertTime</td>
+<td>string</td>
+<td>DateTime</td>
+<td>converts epoch to datetime</td>
+</tr>
+<tr>
+<td>_newTable</td>
+<td>pd.DataFrame</td>
+<td>pd.DataFrame</td>
+<td>removes parenthesis in table</td>
+</tr>
+<tr>
+<td>_getStartDates</td>
+<td>pd.DataFrame</td>
+<td>pd.DataFrame</td>
+<td>Returns time requested and time completed for each survey with ID as the pKey</td>
+</tr>
+<tr>
+<td>_construct</td>
+<td></td>
+<td></td>
+<td>sets self.df using the return value from _getStartDates and sets self.surveyIDs as unique IDs</td>
+</tr>
+<tr>
+<td>_getCondition</td>
+<td></td>
+<td></td>
+<td>deprecated</td>
+</tr>
+<tr>
+<td>createTraversal</td>
+<td></td>
+<td>self.arrayOfSubsetObjects</td>
+<td>Creates a SubData class for every participant ID</td>
+</tr>
+</tbody></table>
 
 <ul>
 <li>_stringCleaning(self, stringToClean)</li>
 </ul>
-
-<p>removes parenthesis</p>
 
 <table><thead>
 <tr>
@@ -520,8 +574,6 @@
 <li>_convertTime(self, unixTime)</li>
 </ul>
 
-<p>converts epoch to datetime</p>
-
 <table><thead>
 <tr>
 <th>Parameters</th>
@@ -535,12 +587,6 @@
 <td>Time expressed in the number of seconds past Thursday, 1 January 1970, minus the number of leap seconds that have taken place since then</td>
 </tr>
 </tbody></table>
-
-<ul>
-<li>_newTable(self)</li>
-</ul>
-
-<p>removes parenthesis in table</p>
 
 <ul>
 <li>_getStartDates(self, table) -&gt; table</li>
@@ -577,18 +623,7 @@
 </tbody></table>
 
 <ul>
-<li>_construct(self)</li>
-</ul>
-
-<p>removes parenthesis and converts epochs in old table, sets instance variable of self.df to current DataFrame</p>
-
-<ul>
-<li><p>_getCondition(): </p>
-
-<ul>
-<li>- deprecated - -</li>
-</ul></li>
-<li><p>createTraversal(self)</p></li>
+<li>createTraversal(self)</li>
 </ul>
 
 <p>traverses over DataFrame and creates SubData objects for each participant ID</p>
