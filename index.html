@@ -446,8 +446,22 @@
 </thead><tbody>
 <tr>
 <td>table</td>
-<td>pd.Df</td>
-<td>a pandas DataFrame containing a parsed JSON file</td>
+<td>pd.DataFrame</td>
+<td>A pandas DataFrame containing a parsed JSON file</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Values</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>table</td>
+<td>pd.DataFrame</td>
+<td>A pandas DataFrame with UnixTime objects converted to DateTime</td>
 </tr>
 </tbody></table>
 
@@ -544,10 +558,87 @@
 </tbody></table>
 
 <ul>
-<li>calculateCompletionDates(self)</li>
+<li>calculateCompletionDates(self) -&gt; list</li>
 </ul>
 
-<p>Calculates the last possible date of completion for each task.</p>
+<p>Returns the dates of when individuals should receive survey tasks</p>
+
+<ul>
+<li>calculateDateRanges(self) -&gt; (DateTime, DateTime)</li>
+</ul>
+
+<p>Returns a tuple of DateTimes</p>
+
+<table><thead>
+<tr>
+<th>Values</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>datesOfCompletion</td>
+<td>DateTime</td>
+<td>First possible date of completion of survey tasks</td>
+</tr>
+<tr>
+<td>addWindow</td>
+<td>DateTime</td>
+<td>Last possible date of completion of survey tasks</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>findOmissions(self, question)</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>question</td>
+<td>Str</td>
+<td>Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)</td>
+</tr>
+<tr>
+<td>requested</td>
+<td>Str</td>
+<td>time requested, default = requested, (‘completed’, ‘requested’)</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Values</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>participantID</td>
+<td>Str</td>
+<td>The ID of the Participant</td>
+</tr>
+<tr>
+<td>completionDates</td>
+<td>list</td>
+<td>Dates of task completion</td>
+</tr>
+<tr>
+<td>completionAfterDates</td>
+<td>list</td>
+<td>Dates of task completion after date range</td>
+</tr>
+<tr>
+<td>nonCompletionDates</td>
+<td>list</td>
+<td>Last possible dates of completion for surveys not completed</td>
+</tr>
+</tbody></table>
 <pre class="highlight python tab-python"><code>
 </code></pre>
       </div>
