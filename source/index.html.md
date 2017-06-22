@@ -159,6 +159,10 @@ unixTime  | Str     | Time expressed in the number of seconds past Thursday, 1 J
 
 removes parenthesis in table
 
+
+
+
+
 * _getStartDates(self, table)
 
 converts epochs in table.
@@ -166,9 +170,12 @@ converts epochs in table.
 
 Parameters| Data Type|Description
 --------- | -------  |------- 
-table     |  pd.Df   |a pandas DataFrame containing a parsed JSON file| 
+table     |   pd.DataFrame    |A pandas DataFrame containing a parsed JSON file| 
 
 
+Values | Data Type |Description
+--------- | ------- | ------- 
+table |  pd.DataFrame   | A pandas DataFrame with UnixTime objects converted to DateTime
 
 
 * _construct(self)
@@ -236,9 +243,34 @@ question  |   Str   |Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘slee
 requested |   Str   | time requested, default = requested, (‘completed’, ‘requested’)
 
 
-* calculateCompletionDates(self)
+* calculateCompletionDates(self) -> list
 
-Calculates the last possible date of completion for each task.
+Returns the dates of when individuals should receive survey tasks
+
+* calculateDateRanges(self) -> (DateTime, DateTime)
+
+Returns a tuple of DateTimes
+
+Values | Data Type |Description
+--------- | ------- | ------- 
+datesOfCompletion  |   DateTime   | First possible date of completion of survey tasks
+addWindow |   DateTime  | Last possible date of completion of survey tasks
+
+
+* findOmissions(self, question)
+
+Parameters| Data Type |Description
+--------- | ------- | ------- 
+question  |   Str   |Survey or Task (‘psqi’, ‘vas’, ‘sibdq’, ‘sleep’)| 
+requested |   Str   | time requested, default = requested, (‘completed’, ‘requested’)
+
+Values | Data Type |Description
+--------- | ------- | ------- 
+participantID  |   Str   | The ID of the Participant
+completionDates |   list  | Dates of task completion
+completionAfterDates  |   list   | Dates of task completion after date range 
+nonCompletionDates |   list   | Last possible dates of completion for surveys not completed
+
 
 
 ```python
