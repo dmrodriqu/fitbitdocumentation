@@ -809,6 +809,66 @@
     <span class="n">subject</span><span class="o">.</span><span class="n">getSurveySeries</span><span class="p">(</span><span class="s">'PSQI'</span><span class="p">)</span>
     <span class="k">print</span> <span class="nb">map</span> <span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">scorePSQI</span><span class="p">,</span> <span class="n">subject</span><span class="o">.</span><span class="n">uniqueSurveys</span><span class="p">)</span> <span class="c"># prints an array of the PSQI scores</span>
 </code></pre>
+<h1 id="the-data-dashboard">The Data Dashboard</h1>
+
+<p>The dashboard pulls all longitudinal data according to two lines of code:</p>
+<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">results</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">Results</span><span class="p">(</span><span class="s">'#questionsToQuery'</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span> <span class="c"># gives dates, defaults to true to give values</span>
+</code></pre>
+<p>questions to query:
+* PSQI
+* SIBDQ
+* WongBaker
+* SubjectGlobalAssesmentVAS
+* SleepVas</p>
+
+<p>The results query also does a rudimentary search. If the query is a substring in the question above,
+it will return a result. Careful use of this function is warranted, and it should be advised against
+unless the two questions have distinctly different characters.</p>
+
+<p>The instance variables in the Results Class:</p>
+
+<table><thead>
+<tr>
+<th>Values</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>IDs</td>
+<td>list</td>
+<td>List of all IDs in the study</td>
+</tr>
+<tr>
+<td>Dates</td>
+<td>np.array</td>
+<td>dates of participant tasks</td>
+</tr>
+<tr>
+<td>Values</td>
+<td>np.array</td>
+<td>values of participatn tasks</td>
+</tr>
+<tr>
+<td>survey</td>
+<td>string</td>
+<td>string of task to retrieve results for</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li><p>_getData(self) -&gt; self.Dates, self.Values
+Retrieves and structures data. Structures all data according to participant task date and value.</p></li>
+<li><p>insertDateGaps(self, dates) -&gt; dic(self.IDs,self.Dates)
+Iterates over the current dictionary of survey dates. If there are a pair of dates with greater than
+a datetime difference of 1 day, it inserts the integer value of the number of days in &ldquo;SKIPPED&rdquo; strings.</p></li>
+<li><p>output(self, date = True, values = False) -&gt; &ldquo;survey.csv&rdquo;</p></li>
+</ul>
+
+<p>Performs all of the functions as above to format a CSV file as the output, either for date times or values.</p>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">
