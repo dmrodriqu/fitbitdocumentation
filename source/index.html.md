@@ -277,3 +277,48 @@ for subject in data.getSubsetData():
     subject.getSurveySeries('PSQI')
     print map (subject.scorePSQI, subject.uniqueSurveys) # prints an array of the PSQI scores
 ```
+
+# The Data Dashboard
+
+The dashboard pulls all longitudinal data according to two lines of code:
+
+```python
+import results
+result = Results('#questionsToQuery')
+result.output(values = False) # gives dates, defaults to true to give values
+```
+
+questions to query:
+* PSQI
+* SIBDQ
+* WongBaker
+* SubjectGlobalAssesmentVAS
+* SleepVas
+
+The results query also does a rudimentary search. If the query is a substring in the question above,
+it will return a result. Careful use of this function is warranted, and it should be advised against
+unless the two questions have distinctly different characters.
+
+
+The instance variables in the Results Class:
+
+Values                    |    Data Type     |Description
+------------------------  | ---------------- | ------------------------------------------- 
+IDs          |   list            | List of all IDs in the study
+Dates	                  |  np.array   | dates of participant tasks
+Values	          |   np.array   | values of participatn tasks
+survey	          |   string     | string of task to retrieve results for
+
+
+* _getData(self) -> self.Dates, self.Values
+Retrieves and structures data. Structures all data according to participant task date and value.
+
+* insertDateGaps(self, dates) -> dic(self.IDs,self.Dates)
+Iterates over the current dictionary of survey dates. If there are a pair of dates with greater than
+a datetime difference of 1 day, it inserts the integer value of the number of days in "SKIPPED" strings.
+
+* output(self, date = True, values = False) -> "survey.csv"
+
+Performs all of the functions as above to format a CSV file as the output, either for date times or values.
+
+
